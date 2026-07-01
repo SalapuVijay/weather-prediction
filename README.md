@@ -1,109 +1,89 @@
-# Rainfall Prediction System
+# ⛈️ Rainfall Prediction System (Weather Oracle)
 
-## Overview
-The "Rainfall Prediction System" is a machine learning-based project developed by the Algo Troopers team during the summer training program (June 22 - July 14, 2025) under the School of Computer Science and Engineering. This system predicts rainfall occurrence (`rain_tomorrow`: 0 for no rain, 1 for rain) using the 2024-2025 USA rainfall dataset, leveraging meteorological parameters such as `temperature`, `humidity`, `wind_speed`, `precipitation`, `cloud_cover`, and `pressure`. The project integrates a Decision Tree Classifier with 98% accuracy, a web-based interface, and a Power BI dashboard for visualization, offering real-time insights for agriculture, disaster management, and planning.
+An end-to-end Machine Learning and full-stack web application designed to predict the occurrence and intensity of rainfall tomorrow across 20 major USA cities. The system leverages a **Decision Tree Classifier (achieving 98% accuracy)**, a **Flask REST API** backend, and an **interactive HTML5 Canvas** frontend featuring real-time physics-based weather animations (rain, clouds, lightning, and stars). 🌪️🔮
 
-## Features
-- **Accurate Prediction**: Achieves 98% accuracy in classifying `rain_tomorrow` using a Decision Tree Classifier.
-- **Real-Time Interface**: Allows users to input weather data and receive instant predictions via a web dashboard.
-- **Interactive Visualization**: Includes a Power BI dashboard to analyze rainfall trends, distributions, and regional patterns.
-- **Comprehensive Analysis**: Utilizes Exploratory Data Analysis (EDA) to derive insights from the 70k+ row dataset.
+---
 
-## Repository Structure
-Rainfall-Prediction-System/
+## 🚀 Live Demo & Repository
 
-├── data/                                   # Contains usa_rain_prediction_dataset_2024_2025.csv
+- 💻 **Frontend Web App**: [https://weather-24-7.onrender.com](https://weather-24-7.onrender.com) *(Static hosting)*
+- 📦 **GitHub Repository**: [SalapuVijay/weather-prediction](https://github.com/SalapuVijay/weather-prediction.git)
 
-├── docs/                                    # Project report and certificates
+---
 
-├── src/                                     # Source code (preprocessing.py, model_training.py, app.py)
+## ✨ Features
 
-├── outputs/                                 # Screenshots (web_dashboard.png, powerbi_dashboard.png)
+- 🤖 **Predictive Machine Learning Model**: A Decision Tree Classifier trained on a 70,000+ row meteorological dataset, analyzing features like `humidity`, `wind_speed`, `precipitation`, and `location` to classify if it will rain tomorrow.
+- 📡 **Flask REST API Backend**: Receives atmospheric parameters, applies fitted features scaling (`scaler_all_locations.pkl`), runs predictions using the serialized model, and returns the classification confidence.
+- 🌤️ **Layered Canvas Animations**:
+  - Twinkling stars particle system for storm/night states.
+  - Fluffy drifting cloud animations with dynamic wind speeds.
+  - Directional rain particle physics simulation governed by rainfall severity.
+  - Procedural lightning bolts and full-screen screen flashes triggered under high probability (storm mode).
+- 🧮 **Atmospheric Form Inputs**: Input fields for Humidity (%), Wind Speed (km/h), Precipitation (mm), and a select dropdown of 20 major USA cities (New York, Los Angeles, Chicago, etc.).
 
-├── README.md                                # This file
+---
 
-├── LICENSE                                  # License information
+## 🛠️ Tech Stack & Technologies
 
-├── Rainfall_Prediction_Dashboard.pbix       # Power BI dashboard file
+### 📊 Data Science & Backend
+- **Core Language**: Python 🐍
+- **Machine Learning**: `scikit-learn`, `joblib`, `scipy` 🧮
+- **Data Wrangling**: `pandas`, `numpy` 📊
+- **Notebook Environment**: Jupyter Notebook (`.ipynb`)
+- **API Server**: Flask & Flask-CORS (Port `5000`) 🚀
 
+### 🎨 Frontend
+- **Structure**: HTML5 📝
+- **Styling**: CSS3 & Bootstrap 5 (imported via CDN) 🎨
+- **Logic & Visuals**: Vanilla JavaScript (Canvas API, RequestAnimationFrame, custom particle physics loops) ⚡
 
+---
 
-## Installation
-1. **Clone the Repository**:
-   - Download the ZIP file from this GitHub page or clone via `git clone https://github.com/yourusername/Rainfall-Prediction-System.git`.
-   - Extract the ZIP file to your local machine.
+## 🗂️ Project Structure
 
-2. **Install Dependencies**:
-   - Navigate to the project folder locally.
-   - Create a `requirements.txt` with dependencies: `pandas`, `numpy`, `scikit-learn`, `flask`.
-   - Run `pip install -r requirements.txt` in your terminal or command prompt.
+```
+├── Rainfall-web/              # Interactive UI Web App
+│   ├── index.html            # Main markup and canvas layers setup
+│   ├── styles.css            # Styles, overlays, time-based gradients, and keyframes
+│   └── script.js             # Canvas drawing cycles, physics loops, and fetch API calls
+│
+├── rainfall_eda_plots2/       # Data Science and Flask Backend
+│   ├── app.py                # Flask API server (/predict)
+│   ├── SummerProject2file.ipynb # Data exploration, model training, tuning, and evaluation
+│   ├── final_decision_tree_model_all_locations.pkl # Trained serialized Decision Tree
+│   ├── scaler_all_locations.pkl                    # Fitted features normalization scaler
+│   ├── usa_rain_prediction_dataset_2024_2025.csv   # Raw meteorological dataset (70k+ rows)
+│   └── *.png                 # Visual plots (correlation heatmaps, distributions, importance)
+│
+└── README.md
+```
 
-3. **Run the Flask Application**:
-   - Navigate to the `src/` folder.
-   - Execute `python app.py` in your terminal.
-   - Access the web interface at `http://localhost:5000`.
+---
 
-4. **Open Power BI Dashboard**:
-   - Double-click `Rainfall_Prediction_Dashboard.pbix` to open in Power BI Desktop.
-   - Interact with the dashboard (requires Power BI Desktop installed).
+## ⚙️ How to Setup & Run Locally
 
-## Usage
-- **Web Interface**: Input weather parameters (e.g., `humidity`, `temperature`) to get `rain_tomorrow` predictions.
-- **Power BI Dashboard**: Explore rainfall distributions, trends, and regional data using slicers for `location` and `date`.
-- **Analysis**: Refer to the project report (`docs/76_CSE343_CSE443_Report_14_07_2025_05_18_46.docx`) for methodology and results.
+### 1. Set Up the Backend API
 
-## Workflow
-The Algo Troopers followed a structured workflow to develop this project:
-1. **Data Collection and Preparation**:
-   - Acquired the `usa_rain_prediction_dataset_2024_2025.csv` with 70k+ rows.
-   - Cleaned data in Power Query Editor (handled missing values, set data types: `date` as Date, `rain_tomorrow` as Whole Number, etc.).
-2. **Exploratory Data Analysis (EDA)**:
-   - Analyzed correlations between `humidity`, `precipitation`, and `rain_tomorrow` using Python (Pandas, Matplotlib).
-   - Identified patterns and outliers in the dataset.
-3. **Model Development**:
-   - Built a Decision Tree Classifier using Scikit-learn, trained on 80% of the data, and validated with 20%.
-   - Achieved 98% accuracy after hyperparameter tuning (e.g., max depth, min samples split).
-4. **Web Development**:
-   - Created a Flask-based web app (`app.py`) with HTML/CSS/JavaScript for real-time predictions.
-   - Integrated the trained model for user inputs.
-5. **Visualization**:
-   - Designed a Power BI dashboard with:
-     - Clustered Bar Chart for `rain_tomorrow` distribution.
-     - Line Chart for `precipitation` trends over `date`.
-     - Stacked Column Chart for average weather parameters by `location`.
-     - Filled Map for geographical `rain_tomorrow` probability.
-     - Card Visuals for key metrics.
-   - Added `location` and `date` slicers for interactivity.
-6. **Testing and Deployment**:
-   - Tested the web app and dashboard with sample data.
-   - Uploaded files to GitHub and saved the Power BI file locally (to be shared via link if >100MB).
-7. **Documentation**:
-   - Compiled a project report and updated this README with workflow and results.
+1. Navigate to the backend folder:
+   ```bash
+   cd rainfall_eda_plots2
+   ```
+2. Install the Python dependencies:
+   ```bash
+   pip install flask flask-cors joblib numpy pandas scikit-learn
+   ```
+3. Start the Flask application:
+   ```bash
+   python app.py
+   ```
+   *The server will start running locally at `http://localhost:5000`.*
 
-## Results
-- Achieved 98% accuracy with the Decision Tree Classifier on the `rain_tomorrow` prediction.
-- Successfully integrated real-time prediction and interactive visualization components.
-- Power BI dashboard effectively visualizes rainfall patterns across the USA.
+### 2. Set Up the Frontend Interface
 
-## Challenges
-- Handling the 70k+ row dataset’s performance in Power BI and Python.
-- Ensuring seamless integration between the Flask backend and web frontend.
-- Managing dataset imbalances (e.g., more 0s than 1s in `rain_tomorrow`) with resampling techniques.
-
-## Learnings
-- Gained expertise in data preprocessing, machine learning model optimization, and full-stack development.
-- Developed skills in creating interactive Power BI dashboards and managing collaborative team projects.
-
-## Future Improvements
-- Incorporate additional weather variables (e.g., soil moisture).
-- Explore advanced models (e.g., neural networks) for enhanced accuracy.
-- Deploy the system on a cloud platform (e.g., Azure) for wider accessibility.
-
-## License
-This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute, with proper attribution.
-
-## Acknowledgments
-The Algo Troopers extend heartfelt gratitude to our mentor, Dr. [Mentor Name], Assistant Professor at the School of Computer Science and Engineering, for expert guidance. We thank the School for providing tools, datasets, and a supportive environment. Special thanks to teammates [Teammate 1 Name], [Teammate 2 Name], [Teammate 3 Name], and [Teammate 4 Name] for their collaborative efforts. Lastly, we acknowledge our families for their encouragement.
-
-## Contact
-For questions or contributions, open an issue on this repository or contact Salapu Vijay at [salapuvijay.visit2006@gmail.com].
+1. Navigate to the frontend directory:
+   ```bash
+   cd ../Rainfall-web
+   ```
+2. Open **`index.html`** in any modern web browser.
+3. Fill out the form values, hit submit, and watch the weather canvas animations morph dynamically from calm skies to rain or storm depending on the ML model's prediction!
